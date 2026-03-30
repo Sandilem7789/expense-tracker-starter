@@ -13,18 +13,22 @@ npm run lint     # Run ESLint
 
 ## Architecture
 
-Single-page React app (no backend). All application logic lives in `src/App.jsx` — one component managing all state via `useState`. There is no routing, no context, no external state library.
+Single-page React app (no backend). State is managed via `useState` with no routing, context, or external state library.
 
 The app tracks financial transactions with these features:
 - Add income/expense transactions with category and amount
 - Filter transactions by type and category
 - Calculate totals (income, expenses, balance)
 
-**This is a course starter project** (codewithmosh.com) intentionally containing bugs and messy code for students to fix:
-- Amounts are stored as strings, causing arithmetic bugs in total calculations
-- Sample data has an incorrect transaction type on one entry
+### Component structure
+
+- `App.jsx` — holds the `transactions` array in state; passes it down and handles `onAdd`
+- `Summary.jsx` — receives `transactions`, computes totalIncome, totalExpenses, and balance internally
+- `TransactionForm.jsx` — owns its own form state; calls `onAdd` prop with the new transaction object
+- `TransactionList.jsx` — receives `transactions`, owns filter state (filterType, filterCategory)
+
+**This is a course starter project** (codewithmosh.com). Remaining known issues:
 - A delete button is styled in CSS but never rendered
-- All logic is in a single component with no separation of concerns
 - No data persistence (state resets on refresh)
 
 ## Constraints
